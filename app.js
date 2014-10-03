@@ -5,6 +5,7 @@
 var express = require('express');
 var passport = require('passport');
 var user = require('./routes/user');
+var resta = require('./routes/resta');
 var passportlocal = require('passport-local');
 var bodyParser= require('body-parser');
 var cookieParser =require('cookie-parser');
@@ -26,6 +27,7 @@ app.use(passport.session());
 passport.use(new passportlocal.Strategy(user.passportAauth));
 
 passport.serializeUser(user.serializeUser);
+
 passport.deserializeUser(user.deserializeUser);
 
 app.get('/', user.root);
@@ -41,6 +43,15 @@ app.get('/signup', user.signup);
 app.post('/signup', user.signupPost);
 
 app.get('/profile', user.profile);
+
+app.get('/resta/:restaname', resta.getResta);
+
+app.get('/resta', resta.getRestas);
+
+app.delete('/resta/:restaname', resta.deleteResta);
+
+app.post('/resta', resta.createResta);
+
  
 var port= process.env.PORT||3000;
 app.listen(port,function(){

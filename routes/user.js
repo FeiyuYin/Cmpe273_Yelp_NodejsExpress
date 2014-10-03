@@ -1,7 +1,4 @@
 
-/*
- * GET users listing.
- */
 
 var sql_con = require('../mysql_con');
 
