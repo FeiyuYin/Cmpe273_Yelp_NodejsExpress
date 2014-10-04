@@ -245,7 +245,6 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         <a href="/">Yelp</a>
     </div>
   
-  <%if(!isAuthenticated) {%>
   <div class="header-account webview-hidden">
   
                 <ul class="logged-out-nav">
@@ -258,39 +257,27 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
             </a>
         </li>
     </ul>
-    </div>
-    <%} else{%>
-    <div class="header-account webview-hidden">
-    Hello, <%= user.email %>!
-    	<p></p>
-    	<a href = '/logout'> Logout here</a>
-    	<p></p>
-    	</div>
-    <%}%>
 
-<ul class="header-nav pull-left" id="header-nav">
-                <li class="inline-block" id="home-link">
-                    <a href="/">
-                        Home
-                    </a>
-                </li>
-                <li class="inline-block" id="about-me">
-                    <a href="/profile">
-                        About Me
-                    </a>
-                </li>
-                <li class="inline-block" id="write-review">
-                    <a href="https://www.yelp.com/writeareview">
-                        Write a Review
-                    </a>
-                </li>
-        </ul>
+    </div>
+
+
                             
 
             </div>
         </div>
 
         </div>
+
+            
+
+
+                
+                
+
+
+                    
+                    
+
                 <div id="print-masthead">
         <img src="http://s3-media2.fl.yelpcdn.com/assets/2/www/img/b7e9d647188d/gfx/header_print.gif" class="print-bkg-img" alt="Yelp">
     </div>

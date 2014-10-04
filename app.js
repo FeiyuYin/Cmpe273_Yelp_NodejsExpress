@@ -6,6 +6,7 @@ var express = require('express');
 var passport = require('passport');
 var user = require('./routes/user');
 var resta = require('./routes/resta');
+var review = require('./routes/review');
 var passportlocal = require('passport-local');
 var bodyParser= require('body-parser');
 var cookieParser =require('cookie-parser');

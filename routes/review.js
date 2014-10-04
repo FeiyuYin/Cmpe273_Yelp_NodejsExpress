@@ -18,7 +18,7 @@ function getReview(req, res){}
 
 function deleteReview(req, res){}
 
-exports createReview = createReview;
-exports createReviewPost = createReviewPost;
-exports getReview = getReview;
-exports deleteReview = deleteReview;
+exports.createReview = createReview;
+exports.createReviewPost = createReviewPost;
+exports.getReview = getReview;
+exports.deleteReview = deleteReview;
