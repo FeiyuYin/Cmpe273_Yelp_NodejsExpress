@@ -39,16 +39,32 @@ function getRestas(req, res){
 
 function deleteResta(req, res){
 	
+	var qS = "DELETE FROM `test`.`resta` WHERE `restaname`='"+ req.params.restaname + "';";
+	sql_con.fetchData(qS, function(error, rows){
+		
+		if(error){
+			
+			console.log("ERROR: " + error.message);
+			res.send(error);
+		}
+		
+		res.redirect('/');
+	});
+
+}
+
+function createRestaPost(req, res){
 	
+	var qS = "INSERT INTO `test`.`resta` (`restaname`, `owner`, `location`, `phone`, `description`, `cat`) VALUES ('AB', 'yinfeiyu43@gmail.com', 'New York', '222-2222222', 'Bad taste', 'Mexican');";
 }
 
 function createResta(req, res){
 	
-	
+	res.render('createresta');
 }
-
 
 exports.getResta = getResta;
 exports.getRestas = getRestas;
 exports.deleteResta = deleteResta;
 exports.createResta = createResta;
+exports.createRestaPost = createRestaPost;

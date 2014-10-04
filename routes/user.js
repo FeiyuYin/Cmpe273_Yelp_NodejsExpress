@@ -4,7 +4,7 @@ var sql_con = require('../mysql_con');
 
 function root(req, res){
 	console.log("/ is requested.");
-	res.render('index',{
+	res.render('yelp_homepage',{
 		isAuthenticated : req.isAuthenticated(),
 		user: req.user
 	});
@@ -13,7 +13,7 @@ function root(req, res){
 function login(req, res){
 	
 	console.log("/login GET is requsted.");
-	res.render('login');
+	res.render('yelp_loginpage');
 }
 
 function loginPost(req, res){
@@ -32,7 +32,7 @@ function logout(req, res){
 function signup(req, res){
 	
 	console.log("/signup GET is requsted.");
-	res.render('signup');
+	res.render('yelp_signuppage');
 }
 
 function signupPost(req, res){

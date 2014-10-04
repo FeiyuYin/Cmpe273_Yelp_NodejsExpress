@@ -42,7 +42,9 @@ app.get('/signup', user.signup);
 
 app.post('/signup', user.signupPost);
 
+
 app.get('/profile', user.profile);
+
 
 app.get('/resta/:restaname', resta.getResta);
 
@@ -50,7 +52,18 @@ app.get('/resta', resta.getRestas);
 
 app.delete('/resta/:restaname', resta.deleteResta);
 
-app.post('/resta', resta.createResta);
+app.get('/createresta', resta.createResta);
+
+app.post('/resta', resta.createRestaPost);
+
+
+app.get('/createreview', review.createReview);
+
+app.post('/createreview', review.createReviewPost);
+
+app.get('/review', review.getReview);
+
+app.delete('/resta/:reviewid', review.deleteReview);
 
  
 var port= process.env.PORT||3000;
