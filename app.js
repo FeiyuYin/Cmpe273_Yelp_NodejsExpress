@@ -6,7 +6,8 @@ var express = require('express');
 var passport = require('passport');
 var user = require('./routes/user');
 var cats = require('./routes/cats');
-var resta = require('./routes/resta');
+var eles = require('./routes/eles');
+//var resta = require('./routes/resta');
 var review = require('./routes/review');
 var passportlocal = require('passport-local');
 var bodyParser= require('body-parser');
@@ -55,15 +56,22 @@ app.post('/cats', cats.createCat);
 app.post('/deletecats', cats.deleteCat);
 
 
-app.get('/resta/:restaname', resta.getResta);
+app.get('/elements/:elename', eles.getEle);
 
-app.get('/resta', resta.getRestas);
+app.post('/elements/', eles.createEle);
 
-app.delete('/resta/:restaname', resta.deleteResta);
+app.post('/deleteeles', eles.deleteEle);
 
-app.get('/createresta', resta.createResta);
 
-app.post('/resta', resta.createRestaPost);
+//app.get('/resta/:restaname', resta.getResta);
+//
+//app.get('/resta', resta.getRestas);
+//
+//app.delete('/resta/:restaname', resta.deleteResta);
+//
+//app.get('/createresta', resta.createResta);
+//
+//app.post('/resta', resta.createRestaPost);
 
 
 app.get('/createreview', review.createReview);

@@ -1,33 +1,10 @@
 var sql_con = require('../mysql_con');
 
 function root(req, res){
+	
+	if(!req.isAuthenticated()){res.redirect('/login');}
 	console.log("/ is requested.");
-	
-	var catList = ['restaurants', 'shopping', 'nightlife', 'coffee', 'food', 'auto', 'homeservices', 'health', 'localservice', 'arts', 'pets'];
-	
-	var qS = "SELECT * FROM test.cats;";
-	sql_con.fetchData(qS, function(error, rows){
-
-//		console.log(rows[0].name);
-		console.log("In get cats");
-		
-		for(var i = 0; i < rows.length; i ++){
-			
-			if(catList.indexOf(rows[i].name) >= 0){
-				
-				catList.splice(catList.indexOf(rows[i].name), 1);
-			}
-		}
-		
-		res.render('yelp_homepage',{
-			isAuthenticated : req.isAuthenticated(),
-			user: req.user,
-			rows: rows,
-			catList:catList
-		});
-	});
-	
-	
+	res.redirect('/cats/restaurants');
 }
 
 function login(req, res){
@@ -111,11 +88,12 @@ function deserializeUser(email, done){
 
 function profile(req, res){
 	
+	if(!req.isAuthenticated()){res.redirect('/login');}
 	console.log("/profile is requsted.");
 //	var user = req.user;
 //	typeof user;
 //	console.log(req.user.email);
-	res.render('yelp_profile',{user : req.user});
+	res.render('yelp_profilepage',{user : req.user});
 }
 
 module.exports.root = root;

@@ -4,24 +4,48 @@ var querystring = require("querystring");
 
 function getCat(req, res){
 	
-	console.log("/resta/:restaname is requested");
+	if(!req.isAuthenticated()){res.redirect('/login');}
+	console.log("/cat/:catname is requested");
 	var catName = req.params.catname;
-//	var restaName = querystring.parse(url.parse(req.url).query)["restaname"];
-	console.log("Requested resta is " + catName);
-	var qS = "SELECT * FROM test.elements where cat = '" + catName + "';";
+	
+	var catList = ['restaurants', 'shopping', 'nightlife', 'coffee', 'food', 'auto', 'homeservices', 'health', 'localservice', 'arts', 'pets'];
+	
+	var qS = "SELECT * FROM test.cats;";
+	
 	sql_con.fetchData(qS, function(error, rows){
-		
-		if(error){
+
+		console.log("In get cats");
+		for(var i = 0; i < rows.length; i ++){
 			
-			console.log("ERROR: " + error.message);
-			res.send(error);
+			if(catList.indexOf(rows[i].name) >= 0){
+				
+				catList.splice(catList.indexOf(rows[i].name), 1);
+			}
 		}
-		res.json(rows);
-	});
+		
+			var qS2 = "SELECT * FROM test.elements where cat = '" + catName + "';";
+			
+			sql_con.fetchData(qS2, function(error, eleRows){
+
+//			console.log(rows[0].name);
+				console.log("In get cats");
+				
+				res.render('yelp_homepage',{
+				isAuthenticated : req.isAuthenticated(),
+				user: req.user,
+				rows: rows,
+				catList: catList,
+				elerows: eleRows
+			});
+			});
+	
+
+		});
 }
 
 function createCat(req, res){
 	
+	if(!req.isAuthenticated()){res.redirect('/login');}
 	var catName = req.body.catname;
 	
 	var qS = "INSERT INTO `test`.`cats` (`name`) VALUES ('" + catName + "');";
@@ -34,6 +58,7 @@ function createCat(req, res){
 
 function deleteCat(req, res){
 	
+	if(!req.isAuthenticated()){res.redirect('/login');}
 	var deleteName = req.body.deletename;
 	
 	var qS = "DELETE FROM `test`.`cats` WHERE `name`='"+ deleteName + "';";

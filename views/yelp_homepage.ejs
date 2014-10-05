@@ -151,7 +151,7 @@
     <meta name="globalsign-domain-verification" content="kDjPHxnLM_aeKV-yeMosvbJzmD5RkDx1dZoGm6lD2-">
 
         
-            <title>San Jose Restaurants, Dentists, Bars, Beauty Salons, Doctors</title>
+            <title>Yelp</title>
 
 
             <link rel="stylesheet" type="text/css" media="all" href="http://s3-media4.fl.yelpcdn.com/assets/2/www/css/1f90cd074450/www-pkg.css">
@@ -382,9 +382,10 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                             <ol>
 
 	<%for(var i = 0; i < rows.length; i ++){%>
-            <li class="tab" data-tab-id="<%= rows[i].name%>">
+            <li data-tab-id="<%= rows[i].name%>">
                 <a href="/cats/<%= rows[i].name%>">
                     <i class="i ig-best_of_yelp i-<%= rows[i].name%>-best_of_yelp BOY-icon"></i>
+                    
                     <span class="category-title"><%= rows[i].name%></span>
                 </a>
             </li>
@@ -679,33 +680,20 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                             <ul class="content-list ieSucks">
                                     <li data-section-id="restaurants">
         <div class="header-with-ui">
-            <h3>Restaurants</h3>
+        
+ 	       
+            <h3><%= elerows[0].cat%>:</h3>
             
         </div>
         <div class="content">
             <ul class="ylist ylist-bordered">
-                    
+
+<%for(var i = 0; i < elerows.length; i ++){%>                    
     <li class="media-block media-block-large clearfix">
-        <div class="media-avatar">
-                    
 
-
-    <div class="photo-box pb-60s">
-                <a href="/biz/back-a-yard-san-jose">
-            
-
-    <img alt="Back A Yard" class="photo-box-img" height="60" src="//s3-media2.fl.yelpcdn.com/bphoto/S828Z_RAnOccrE-N7SriXA/60s.jpg" width="60">
-
-        </a>
-
-    </div>
-
-
-
-        </div>
                 <div class="media-story">
             <div class="media-title">
-                <span class="indexed-biz-name">1.     <a class="biz-name" href="/biz/back-a-yard-san-jose" data-hovercard-id="N2AM6RCAHd-cwygIM_i2tg">Back A Yard</a>
+                <span class="indexed-biz-name"><a class="biz-name" href="/elements/<%= elerows[i].name%>" data-hovercard-id="N2AM6RCAHd-cwygIM_i2tg"><%= elerows[i].name%></a>
 </span>
 
     </div>
@@ -714,34 +702,23 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                 <div class="biz-rating biz-rating-medium clearfix">
                 
         <div class="rating">
-        <i class="star-img stars_4_half" title="4.5 star rating">
-            <img alt="4.5 star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
+        <i class="star-img stars_<%= elerows[i].rate%>" title="<%= elerows[i].rate%> star rating">
+            <img alt="<%= elerows[i].rate%> star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
         </i>
     </div>
 
 
                 <span class="review-count rating-qualifier">
-            733 reviews
+            <%= elerows[i].reviews%> reviews
     </span>
 
         </div>
 
         <div class="media-block clearfix display-table">
-                <div class="media-avatar">
-                    
-
-
-
-    <div class="photo-box pb-30s">
-            <a href="http://www.yelp.com/user_details?userid=N2byEtDd0NjbNHBuA5kXUw">
-                <img alt="Stacey W." class="photo-box-img" height="30" src="http://s3-media3.fl.yelpcdn.com/photo/ovvVun9atYTbhvN-PJrhSg/30s.jpg" width="30">
-            </a>
-    </div>
-
-                </div>
+                
                 <div class="media-story display-table-cell">
                     <div class="ie-tablecell-hack">
-                        The <span class="highlighted">jerk chicken</span> is perfectly spicy and oh so flavorful.
+                        <%= elerows[i].description%>
                     </div>
                 </div>
         </div>
@@ -750,9 +727,9 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </div>
 
     </li>
-
+<%}%>
                     
-    <li class="media-block media-block-large clearfix">
+<!--    <li class="media-block media-block-large clearfix">
         <div class="media-avatar">
                     
 
@@ -951,14 +928,21 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </div>
 
     </li>
-
+-->
                     
 
 
             </ul>
         </div>
     </li>
-        </div>
+</div>
+
+
+</ul>
+</div>
+                        
+                        
+                    </div>
     <%if(isAuthenticated){%>
     <div>
     <p></p>
@@ -996,10 +980,6 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </form>
         </div>
     <%}%>
-
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
