@@ -5,6 +5,7 @@
 var express = require('express');
 var passport = require('passport');
 var user = require('./routes/user');
+var cats = require('./routes/cats');
 var resta = require('./routes/resta');
 var review = require('./routes/review');
 var passportlocal = require('passport-local');
@@ -45,6 +46,13 @@ app.post('/signup', user.signupPost);
 
 
 app.get('/profile', user.profile);
+
+
+app.get('/cats/:catname', cats.getCat);
+
+app.post('/cats', cats.createCat);
+
+app.post('/deletecats', cats.deleteCat);
 
 
 app.get('/resta/:restaname', resta.getResta);

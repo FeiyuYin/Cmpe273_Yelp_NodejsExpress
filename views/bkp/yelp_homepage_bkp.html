@@ -215,7 +215,6 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
 
 
         <div id="wrap" class="lang-en">
-
                     <div>
                 
 
@@ -246,57 +245,39 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         <a href="/">Yelp</a>
     </div>
   
-  <%if(!isAuthenticated) {%>
   <div class="header-account webview-hidden">
   
-    <ul class="logged-out-nav">
+                <ul class="logged-out-nav">
         <li>
             <a href="/signup" id="header-sign-up" class="ybtn ybtn-primary header-button sign-up">Sign Up</a>
         </li>
         <li class="text-centered">
-            <a class="log-in" href="/login">
+            <a class="log-in" href="/ligin">
                 Log In
             </a>
         </li>
     </ul>
+
     </div>
-    <%} else{%>
-    <div class="header-account webview-hidden">
-    Hello, <%= user.email %>!
-    	<li class="text-centered">
-    	<a class="log-in" href = '/logout'> <font color = "white">Logout here</font></a>
-    	</li>
-    	</div>
-    <%}%>
 
-<ul class="header-nav pull-left" id="header-nav">
-<p></p>
-<p></p>
-<p></p>
-<p></p>
 
-                <li class="inline-block" id="home-link">
-                    <a href="/">
-                        Home
-                    </a>
-                </li>
-                <li class="inline-block" id="about-me">
-                    <a href="/profile">
-                        About Me
-                    </a>
-                </li>
-                <li class="inline-block" id="write-review">
-                    <a href="https://www.yelp.com/writeareview">
-                        Write a Review
-                    </a>
-                </li>
-        </ul>
                             
 
             </div>
         </div>
 
         </div>
+
+            
+
+
+                
+                
+
+
+                    
+                    
+
                 <div id="print-masthead">
         <img src="http://s3-media2.fl.yelpcdn.com/assets/2/www/img/b7e9d647188d/gfx/header_print.gif" class="print-bkg-img" alt="Yelp">
     </div>
@@ -339,9 +320,8 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
 <div class="container homepage">
             
 <div class="clearfix layout-block layout-a layout-border">
+<div class="column column-alpha main">
 
-
-<%if(!isAuthenticated) {%>
                     <div class="ysection" id="signup-pitch">
         <div class="content">
             <h2 class="embossed-text-white">Yelp is the best way to find great local businesses</h2>
@@ -350,7 +330,6 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
             </p>
             <a href="/signup" class="ybtn ybtn-primary ytype">Create Your Free Account</a>
         </div>
-<%}%>
     </div>
 
 
@@ -374,23 +353,29 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                 <div id="google_ads_iframe_/1014943/yelp_us/welcome/625x100_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1014943/yelp_us/welcome/625x100_0" name="google_ads_iframe_/1014943/yelp_us/welcome/625x100_0" width="625" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1014943/yelp_us/welcome/625x100_0__hidden__" name="google_ads_iframe_/1014943/yelp_us/welcome/625x100_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
             </div>
         </div>
-           <div class="ysection clearfix" id="best-of-yelp-module">
+    
+
+
+
+                        <div class="ysection clearfix" id="best-of-yelp-module">
             <h2>Best of Yelp</h2>
             <div class="content">
                 <div class="ysection clearfix" id="best-of-yelp-main">
                     <div class="navigation">
                             <ol>
 
-	<%for(var i = 0; i < rows.length; i ++){%>
-            <li class="tab" data-tab-id="<%= rows[i].name%>">
-                <a href="/cats/<%= rows[i].name%>">
-                    <i class="i ig-best_of_yelp i-<%= rows[i].name%>-best_of_yelp BOY-icon"></i>
-                    <span class="category-title"><%= rows[i].name%></span>
+            <li class="tab selected" data-tab-id="restaurants">
+                <a href="/c/san-jose/restaurants">
+                    <i class="i ig-best_of_yelp i-restaurants-best_of_yelp BOY-icon"></i>
+                    <span class="category-title">Restaurants</span>
+                        <span class="review-count">
+                            5,610 reviewed
+                        </span>
                 </a>
             </li>
-	<%}%>
 
- <!--            <li class="tab" data-tab-id="food">
+
+            <li class="tab" data-tab-id="food">
                 <a href="/c/san-jose/food">
                     <i class="i ig-best_of_yelp i-food-best_of_yelp BOY-icon"></i>
                     <span class="category-title">Food</span>
@@ -550,7 +535,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
             </li>
 
 
-           <li class="tab" data-tab-id="arts">
+            <li class="tab" data-tab-id="arts">
                 <a href="/c/san-jose/arts">
                     <i class="i ig-best_of_yelp i-arts-best_of_yelp BOY-icon"></i>
                     <span class="category-title">Arts &amp; Entertainment</span>
@@ -669,7 +654,6 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                         </span>
                 </a>
             </li>
-            -->
 
     </ol>
 
@@ -680,7 +664,9 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                                     <li data-section-id="restaurants">
         <div class="header-with-ui">
             <h3>Restaurants</h3>
-            
+            <div class="hd-ui">
+                <a href="/c/san-jose/restaurants" class="link-more">See More</a>
+            </div>
         </div>
         <div class="content">
             <ul class="ylist ylist-bordered">
@@ -953,49 +939,58 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </li>
 
                     
+    <li class="media-block media-block-large clearfix last">
+        <div class="media-avatar">
+                    
 
+
+    <div class="photo-box pb-60s">
+                <a href="/biz/off-the-street-san-jose-2">
+            
+
+    <img alt="Off The Street" class="photo-box-img" height="60" src="//s3-media4.fl.yelpcdn.com/bphoto/u0n72gEWWchcqojUVQLbyQ/60s.jpg" width="60">
+
+        </a>
+
+    </div>
+
+
+
+        </div>
+                <div class="media-story">
+            <div class="media-title">
+                <span class="indexed-biz-name">5.     <a class="biz-name" href="/biz/off-the-street-san-jose-2" data-hovercard-id="V_Wwj9fprkhCSg8-mMOPOQ">Off The Street</a>
+</span>
+
+    </div>
+    <div>
+        
+                <div class="biz-rating biz-rating-medium clearfix">
+                
+        <div class="rating">
+        <i class="star-img stars_4_half" title="4.5 star rating">
+            <img alt="4.5 star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
+        </i>
+    </div>
+
+
+                <span class="review-count rating-qualifier">
+            45 reviews
+    </span>
+
+        </div>
+
+        <div class="media-block clearfix display-table">
+        </div>
+    </div>
+
+    </div>
+
+    </li>
 
             </ul>
         </div>
     </li>
-        </div>
-    <%if(isAuthenticated){%>
-    <div>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    
-    <form action = '/cats' method = 'post'>
-    Add Category:
-    <select name="catname" size="1">
-        <%for(var i = 0; i < catList.length; i ++){%>
-                <option><%= catList[i]%></option>
-        <%}%>
-    </select>
-    <button type = 'submit' class="ybtn ybtn-primary ytype submit">Add</button>
-    </form>
-        </div>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>       
-        <div>
-    <form action = '/deletecats' method = 'post'>
-    Delete Category:
-    <select name="deletename" size="1">
-        <%for(var i = 0; i < rows.length; i ++){%>
-                <option><%= rows[i].name%></option>
-        <%}%>
-    </select>
-    <button type = 'submit' class="ybtn ybtn-primary ytype submit">Delete</button>
-    </form>
-        </div>
-    <%}%>
 
                             </ul>
                         </div>
@@ -1084,7 +1079,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         </ul>
     </fieldset>
 
-
+    </div>
 
 
         
