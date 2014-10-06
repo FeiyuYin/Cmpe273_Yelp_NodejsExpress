@@ -263,6 +263,8 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     <%} else{%>
     <div class="header-account webview-hidden">
     Hello, <%= user.email %>!
+    <p></p>
+    Last login time: <%= user.lastlogintime %>
     	<li class="text-centered">
     	<a class="log-in" href = '/logout'> <font color = "white">Logout here</font></a>
     	</li>
@@ -285,11 +287,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                         About Me
                     </a>
                 </li>
-                <li class="inline-block" id="write-review">
-                    <a href="https://www.yelp.com/writeareview">
-                        Write a Review
-                    </a>
-                </li>
+
         </ul>
                             
 
@@ -681,9 +679,9 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                                     <li data-section-id="restaurants">
         <div class="header-with-ui">
         
- 	       
+ 	       <%if(elerows.length > 0){%>
             <h3><%= elerows[0].cat%>:</h3>
-            
+            <%}%>
         </div>
         <div class="content">
             <ul class="ylist ylist-bordered">

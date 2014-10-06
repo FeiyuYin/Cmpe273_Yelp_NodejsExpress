@@ -102,7 +102,7 @@
                 <link rel="search" type="application/opensearchdescription+xml" href="/opensearch" title="Yelp">
 
 
-    <link rel="alternate" type="application/rss+xml" title="Feiyu Y.'s Recent Reviews" href="http://www.yelp.com/syndicate/user/nYNVAUvCA3zXmrkfoH-Q8A/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="<%= user.email%>'s Recent Reviews" href="http://www.yelp.com/syndicate/user/nYNVAUvCA3zXmrkfoH-Q8A/rss.xml">
 
             
 
@@ -111,7 +111,7 @@
 
 
         
-            <title>Feiyu Y.'s Reviews | San Jose | Yelp</title>
+            <title><%= user.email%>'s Reviews | San Jose | Yelp</title>
 
 
             <link rel="stylesheet" type="text/css" media="all" href="http://s3-media4.fl.yelpcdn.com/assets/2/www/css/1f90cd074450/www-pkg.css">
@@ -271,15 +271,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                         About Me
                     </a>
                 </li>
-                <li class="inline-block" id="write-review">
-                    <a href="https://www.yelp.com/writeareview">
-                        Write a Review
-                    </a>
-                </li>
-                
-                
-                
-                
+  
         </ul>
 
             </div>
@@ -369,10 +361,76 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
 <div class="column column-sub-alpha " id="user_reviews_list">
                     <div id="review_lister_header">
                     
-                <h3 id="recentReviews">Recent Reviews</h3>
-                <p class="formNote">
+                <h3 id="recentReviews">Recent Reviews:</h3>
+                
+                
+                
+                
+                
+                
+                
+                
+<%for(var i = 0; i < reviewrows.length; i ++){%>
+<li>
+                <div class="review review-with-no-actions" data-review-id="pgOC7PbGyrBinicqhi_eWQ" itemprop="review" itemscope="" itemtype="http://schema.org/Review">
+            <meta itemprop="author" content="Saundra D.">
+            <div class="review-sidebar">
+        <div class="review-sidebar-content">
+                <div class="ypassport media-block clearfix">
+        
+        <div class="media-story">
+                <ul class="user-passport-info">
+        <li class="user-name">
+        Your comment on: <a href = '/elements/<%= reviewrows[i].element%>'><%= reviewrows[i].element%></a>
+        </li>
+        <br>
+        
+    </ul>
+        </div>
+    </div>
+                   
+         </div>
+     </div>
+
+        <div class="review-wrapper">
+               <div class="review-content">
+            <div class="biz-rating biz-rating-very-large clearfix">
+        <div itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating">
+                
+        <div class="rating-very-large">
+        <i class="star-img stars_<%= reviewrows[i].rate%>" title="<%= reviewrows[i].rate%>.0 star rating">
+            <img alt="<%= reviewrows[i].rate%>.0 star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
+        </i>
+            <meta itemprop="ratingValue" content="5.0">
+    </div>
+
+
+        </div>
+            <span class="rating-qualifier">
+            <meta itemprop="datePublished" content="2014-10-04">
+        <%= reviewrows[i].date%>
+    </span>
+
+    </div>
+                <p class="review_comment ieSucks" itemprop="description" lang="en"><%= reviewrows[i].comment%></p> 
+    </div>
+        </div>
+    </div>
+
+        </li>
+<%}%>  
+
+
+
+
+
+
+
+                
+               <p class="formNote">
                 </p>
         </div>
+<!--         
             <div id="empty_reviews">
                     <img src="http://s3-media4.fl.yelpcdn.com/assets/2/www/img/a2bf6452b6e7/gfx/empty_reviews.gif" style="float:left;vertical-align:middle;margin-right:20px;">
                     <p>You haven't created any reviews yet.  Why not write some?<br>It's your turn to be the critic.</p>
@@ -381,6 +439,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                         <a href="https://www.yelp.com/writeareview" class="ybtn ybtn-primary">Write a Review</a>
                     </p>
             </div>
+-->
         <br style="clear:both;">
 
 
@@ -401,7 +460,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
             
             <span class="highlight2">Last Name</span>
             <p><%=user.lastname%></p>
-    <a href="/profile_bio?return_url=%2Fuser_details%3Fuserid%3DnYNVAUvCA3zXmrkfoH-Q8A">Update Your Profile</a><br>
+            <br>
     </div>
 
 

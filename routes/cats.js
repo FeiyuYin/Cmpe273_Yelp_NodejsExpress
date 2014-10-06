@@ -27,9 +27,7 @@ function getCat(req, res){
 			
 			sql_con.fetchData(qS2, function(error, eleRows){
 
-//			console.log(rows[0].name);
 				console.log("In get cats");
-				
 				res.render('yelp_homepage',{
 				isAuthenticated : req.isAuthenticated(),
 				user: req.user,

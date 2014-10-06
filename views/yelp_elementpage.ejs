@@ -328,19 +328,11 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                     </a>
                 </li>
                 <li class="inline-block" id="about-me">
-                    <a href="/user_details">
+                    <a href="/profile">
                         About Me
                     </a>
                 </li>
-                <li class="inline-block" id="write-review">
-                    <a href="https://www.yelp.com/writeareview">
-                        Write a Review
-                    </a>
-                </li>
-                
-                
-                
-                
+      
         </ul>
 
             </div>
@@ -435,7 +427,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         </div>
         <div class="biz-page-header-right">
                 <div class="biz-page-actions nowrap">
-        <a href="/writeareview/biz/ubaGEwbm-tt38c6KXWUv6A?return_url=%2Fbiz%2FubaGEwbm-tt38c6KXWUv6A" class="ybtn ybtn-primary ytype war-button"><span class="i-wrap ig-wrap-common i-war-star-common-wrap"><i class="i ig-common i-war-star-common"></i> Write a Review</span></a>
+        <a href="/createreview/<%= element.name%>" class="ybtn ybtn-primary ytype war-button"><span class="i-wrap ig-wrap-common i-war-star-common-wrap"><i class="i ig-common i-war-star-common"></i> Write a Review</span></a>
         
     </div>
 
@@ -470,7 +462,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
                             <div class="feed" data-component-bound="true">
             <div class="feed-header" data-component-bound="true">
             <div class="feed-header-search-row">
-            <h2>Reviews</h2>
+            <h2>Reviews:</h2>
 
             
     </div>
@@ -483,7 +475,9 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         
         <div class="review-list" data-component-bound="true" style="position: relative;">
                 <ul class="ylist ylist-bordered reviews" data-component-bound="true">
-                    <li>
+                
+<%for(var i = 0; i < reviewrows.length; i ++){%>
+<li>
                 <div class="review review-with-no-actions" data-review-id="pgOC7PbGyrBinicqhi_eWQ" itemprop="review" itemscope="" itemtype="http://schema.org/Review">
             <meta itemprop="author" content="Saundra D.">
             <div class="review-sidebar">
@@ -493,20 +487,15 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         <div class="media-story">
                 <ul class="user-passport-info">
         <li class="user-name">
-                    <a class="user-display-name" href="/user_details?userid=NLsC0TuV180DoPqpn2N3Tg" data-hovercard-id="2W0BfopXF5fHXD-1DxjGow">Saundra D.</a>
+        <%= user.email%>
         </li>
         <li class="user-location">
-            <b>Pinole, CA</b>
+            <b>Zip Code: <%= user.zipcode%></b>
         </li>
     </ul>
-
-                
-
         </div>
     </div>
-
-                    
-
+                   
          </div>
      </div>
 
@@ -516,8 +505,8 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         <div itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating">
                 
         <div class="rating-very-large">
-        <i class="star-img stars_5" title="5.0 star rating">
-            <img alt="5.0 star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
+        <i class="star-img stars_<%= reviewrows[i].rate%>" title="<%= reviewrows[i].rate%>.0 star rating">
+            <img alt="<%= reviewrows[i].rate%>.0 star rating" class="offscreen" height="303" src="http://s3-media3.fl.yelpcdn.com/assets/2/www/img/c2252a4cd43e/ico/stars/v2/stars_map.png" width="84">
         </i>
             <meta itemprop="ratingValue" content="5.0">
     </div>
@@ -526,26 +515,24 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
         </div>
             <span class="rating-qualifier">
             <meta itemprop="datePublished" content="2014-10-04">
-        10/4/2014
+        <%= reviewrows[i].date%>
     </span>
 
     </div>
-
-                
-
-                <p class="review_comment ieSucks" itemprop="description" lang="en">Awesome authentic Jamaican food. &nbsp;I had the oxtails just like I always do (I am a regular at their Menlo Park location) and it was just as good. &nbsp;Loved the jerk chicken, and yes it is spicy so just stop trippin', &nbsp;if you want your food bland go somewhere else and don't mess it up for the rest of us.<br><br>They have housemade ginger beer so skip the bottle. Good stuff here. Don't miss it!</p> 
-                    
-
+                <p class="review_comment ieSucks" itemprop="description" lang="en"><%= reviewrows[i].comment%></p> 
     </div>
-    
-    
-    
-
         </div>
     </div>
 
         </li>
-        <li>
+<%}%>        
+        
+        
+        
+        
+        
+        
+<!--        <li>
                 <div class="review review-with-no-actions" data-review-id="DoCxW3IRK1Ux6YF-WWukiA" itemprop="review" itemscope="" itemtype="http://schema.org/Review">
             <meta itemprop="author" content="Huy D.">
             <div class="review-sidebar">
@@ -1384,6 +1371,7 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </div>
 
         </li>
+-->
 
     </ul>
 

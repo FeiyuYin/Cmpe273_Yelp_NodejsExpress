@@ -22,6 +22,15 @@ function loginPost(req, res){
 function logout(req, res){
 	
 	console.log("/logout is requsted.");
+	
+	var dateObj = new Date();
+	var month = dateObj.getUTCMonth() + 1; //months from 1-12
+	var day = dateObj.getUTCDate();
+	var year = dateObj.getUTCFullYear();
+	var date = month + "/" + day + "/" + year;
+	
+	var qS = "UPDATE `test`.`users` SET `lastlogintime`='" + date + "' WHERE `email`='yinfeiyu43@gmail.com';";
+	sql_con.fetchData(qS, function(error, rows){});
 	req.logout();
 	res.redirect('/');
 }
@@ -60,7 +69,7 @@ function passportAauth(username, password, done){
 
 //			done(null,{id:username, name: username });
 			console.log("In userAuth email is: " + rows[0].email);
-			done(null, {email: rows[0].email, firstname: rows[0].firstname, lastname: rows[0].lastname, zipcode: rows[0].zipcode});
+			done(null, {email: rows[0].email, firstname: rows[0].firstname, lastname: rows[0].lastname, zipcode: rows[0].zipcode, lastlogintime: rows[0].lastlogintime});
 		}
 		else
 		{
@@ -82,7 +91,7 @@ function deserializeUser(email, done){
 	sql_con.fetchData(qS, function(error, rows){
 
 		console.log("In passport.deserializeUser: email is " + rows[0].email);
-		done(null, {email: rows[0].email, firstname: rows[0].firstname, lastname: rows[0].lastname, zipcode: rows[0].zipcode});
+		done(null, {email: rows[0].email, firstname: rows[0].firstname, lastname: rows[0].lastname, zipcode: rows[0].zipcode, lastlogintime: rows[0].lastlogintime});
 	});
 }
 
@@ -90,10 +99,13 @@ function profile(req, res){
 	
 	if(!req.isAuthenticated()){res.redirect('/login');}
 	console.log("/profile is requsted.");
-//	var user = req.user;
-//	typeof user;
-//	console.log(req.user.email);
-	res.render('yelp_profilepage',{user : req.user});
+	var qS = "select * from `test`.`review` where user = '" + req.user.email + "';";
+	
+	sql_con.fetchData(qS, function(error, rows){
+		
+		res.render('yelp_profilepage',{user : req.user, reviewrows: rows});
+	});
+	
 }
 
 module.exports.root = root;

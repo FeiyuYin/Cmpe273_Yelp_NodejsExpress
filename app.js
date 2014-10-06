@@ -7,7 +7,6 @@ var passport = require('passport');
 var user = require('./routes/user');
 var cats = require('./routes/cats');
 var eles = require('./routes/eles');
-//var resta = require('./routes/resta');
 var review = require('./routes/review');
 var passportlocal = require('passport-local');
 var bodyParser= require('body-parser');
@@ -63,18 +62,7 @@ app.post('/elements/', eles.createEle);
 app.post('/deleteeles', eles.deleteEle);
 
 
-//app.get('/resta/:restaname', resta.getResta);
-//
-//app.get('/resta', resta.getRestas);
-//
-//app.delete('/resta/:restaname', resta.deleteResta);
-//
-//app.get('/createresta', resta.createResta);
-//
-//app.post('/resta', resta.createRestaPost);
-
-
-app.get('/createreview', review.createReview);
+app.get('/createreview/:elename', review.createReview);
 
 app.post('/createreview', review.createReviewPost);
 

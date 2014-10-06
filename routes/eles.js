@@ -14,7 +14,14 @@ function getEle(req, res){
 	
 	sql_con.fetchData(qS, function(error, rows){
 		
-		res.render('yelp_elementpage', {isAuthenticated: req.isAuthenticated(), user: req.user, element: rows[0]});
+		var qS2 = "select * from test.review where element = '" + eleName + "'";
+		
+		sql_con.fetchData(qS2, function(error, reviewRows){
+			
+			res.render('yelp_elementpage', {isAuthenticated: req.isAuthenticated(), user: req.user, element: rows[0], reviewrows: reviewRows});
+		});
+		
+		
 	});
 	
 	
