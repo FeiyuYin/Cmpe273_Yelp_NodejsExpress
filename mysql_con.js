@@ -3,6 +3,49 @@
  */
 
 var mysql = require('mysql');
+
+var av = [true, true, true, true, true, true, true, true, true, true];
+
+var cons = [];
+
+function getCon(){
+	
+	if(cons.length === 0){
+		
+		console.log("Init connection pool.");
+		for(var j = 0; j < 10; j ++){
+			
+			cons[j] = mysql.createConnection({
+				host : 'localhost',
+				user : 'root',
+				password : '12345678',
+				port : '3306',
+				database : 'test'
+				});
+		}
+	}
+	
+	while(true){
+		for(var i = 0; i < 10; i ++){
+		
+			if(av[i] === true){
+			
+				av[i] = false;
+				console.log(i + "th connection is leased.");
+				var result = [cons[i], i];
+				return result;
+			}
+		}
+	}
+}
+
+function returnCon(i){
+	
+	console.log(i + "th connection is returned.");
+	av[i] = true;
+}
+
+
 var connection = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
@@ -11,43 +54,60 @@ var connection = mysql.createConnection({
 	database : 'test'
 	});
 
-//connection.query('USE test', function (err) {
-//	if (err) throw err;
-//	connection.query('CREATE TABLE IF NOT EXISTS customer('
-//	+ 'id INT NOT NULL AUTO_INCREMENT,'
-//	+ 'PRIMARY KEY(id),'
-//	+ 'name VARCHAR(30)'
-//	+ ')', function (err) {
-//	if (err) throw err;
-//	});
-//	console.log("I am here");
-//	});
-// 
 
 function fetchData(sqlQuery, callback){
 	
 	console.log("\nSQL Query::"+sqlQuery);
 	
-//	var connection=getConnection();
+	var conn = getCon();
 	
-	connection.query(sqlQuery, function(err, rows, fields) {
+	var i = conn[1];
+	
+	conn[0].query(sqlQuery, function(err, rows, fields) {
 		if(err){
 			console.log("ERROR: " + err.message);
 		}
 		else
-		{	
+		{
 			callback(err, rows);
 		}
 	});
-	console.log("\nConnection closed..");
-//	connection.end();
+	
+	returnCon(i);
 }
+
+//function fetchData(sqlQuery, callback){
+//	
+//	console.log("\nSQL Query::"+sqlQuery);
+//	
+//	connection.query(sqlQuery, function(err, rows, fields) {
+//		if(err){
+//			console.log("ERROR: " + err.message);
+//		}
+//		else
+//		{
+//			callback(err, rows);
+//		}
+//	});
+//	console.log("\nConnection closed..");
+//}
 
 function insert(qS){
 	
+	var conn = getCon();
+	
+	var i = conn[1];
+	
 	console.log("\nSQL Query::" + qS);
-	connection.query(qS);
+	conn[0].query(qS);
+	returnCon(i);
 }
+
+//function insert(qS){
+//	
+//	console.log("\nSQL Query::" + qS);
+//	connection.query(qS);
+//}
 
 function query(queryS, con){
 
@@ -56,42 +116,15 @@ function query(queryS, con){
 		if(rows.length !== 0){
 			
 			console.log("DATA: " + rows[0].password);
-//			return rows;
 		}
 		else{console.log("Empty data");}
 	});
 }
 
-//function insertAndQuery(){
-//var mysql      = require('mysql');
-//
-//var connection = mysql.createConnection({
-//	host     : 'localhost',
-//	user     : '',
-//	password : '',
-//	port: '3306',
-//	database: 'test'
-//});
-//	 
-//	connection.connect();
-//	var sql = 'INSERT INTO MAN VALUES(1,"PRADYUMNA")';
-//	connection.query(sql, function(err, results) {
-//		if (err) {
-//            console.log("ERROR: " + err.message);
-//        }
-//		console.log(results);
-//		sql = 'SELECT * FROM USER';
-//		connection.query(sql, function(err, rows, fields){
-//				if(rows.length!==0){
-//					console.log("DATA: " + rows[0].data.toString());
-//				}
-//		});
-//		 
-//	});
-//}
-//module.exports = query;
-//exports.connection = connection;
+
 exports.query = query;
 exports.connection = connection;
 exports.fetchData = fetchData;
 exports.insert = insert;
+exports.getCon = getCon;
+exports.returnCon = returnCon;

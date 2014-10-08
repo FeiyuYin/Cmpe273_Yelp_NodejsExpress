@@ -3,8 +3,10 @@ var sql_con = require('../mysql_con');
 function root(req, res){
 	
 	if(!req.isAuthenticated()){res.redirect('/login');}
+	else{
 	console.log("/ is requested.");
 	res.redirect('/cats/restaurants');
+	}
 }
 
 function login(req, res){

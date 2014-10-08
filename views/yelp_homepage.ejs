@@ -967,6 +967,19 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     <p></p>
     <p></p>       
         <div>
+        
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+        <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
     <form action = '/deletecats' method = 'post'>
     Delete Category:
     <select name="deletename" size="1">
@@ -976,19 +989,60 @@ try{s=document.createElement("div"),s.innerHTML="\x3c!--[if IE 8]>x<![endif]--\x
     </select>
     <button type = 'submit' class="ybtn ybtn-primary ytype submit">Delete</button>
     </form>
+    </div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>       
+        <div>
+    <form action = '/elements' method = 'post'>
+    Add Element:
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    Choose a Catagory:
+    <select name="addname" size="1">
+        <%for(var i = 0; i < rows.length; i ++){%>
+                <option><%= rows[i].name%></option>
+        <%}%>
+    </select>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    New Element Name:
+    <input type = 'text' name = 'newelename' placeholder = 'Element Name'>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    Location:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type = 'text' name = 'elelocation' placeholder = 'Location'>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    Description:
+    <p></p>
+    <textarea cols="40" rows="8" class="form400 default_valued_text_field" name="eledescription" style="height: 115px;"></textarea>
+    <button type = 'submit' class="ybtn ybtn-primary ytype submit">Create</button>
+    </form>
         </div>
     <%}%>
                 </div>
             </div>
         </div>
-
-
-                
-                
-
-                        
-
-    
 
         <div id="compliment-input-boxes" style="display: none;">
             <fieldset>

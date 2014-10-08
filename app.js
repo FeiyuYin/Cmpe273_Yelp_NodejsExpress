@@ -8,6 +8,7 @@ var user = require('./routes/user');
 var cats = require('./routes/cats');
 var eles = require('./routes/eles');
 var review = require('./routes/review');
+var con = require('./mysql_con');
 var passportlocal = require('passport-local');
 var bodyParser= require('body-parser');
 var cookieParser =require('cookie-parser');
@@ -31,6 +32,7 @@ passport.use(new passportlocal.Strategy(user.passportAauth));
 passport.serializeUser(user.serializeUser);
 
 passport.deserializeUser(user.deserializeUser);
+
 
 app.get('/', user.root);
 
@@ -57,7 +59,7 @@ app.post('/deletecats', cats.deleteCat);
 
 app.get('/elements/:elename', eles.getEle);
 
-app.post('/elements/', eles.createEle);
+app.post('/elements', eles.createEle);
 
 app.post('/deleteeles', eles.deleteEle);
 

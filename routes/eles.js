@@ -27,7 +27,22 @@ function getEle(req, res){
 	
 }
 
-function createEle(req, res){}
+function createEle(req, res){
+	
+	if(!req.isAuthenticated()){res.redirect('/login');}
+	
+	var owner = req.user.email;
+	var elecat = req.body.addname;
+	var eleName = req.body.newelename;
+	var eleLocation = req.body.elelocation;
+	var eleDescription = req.body.eledescription;
+	
+	
+	var qS = "INSERT INTO `test`.`elements` (`name`, `owner`, `location`, `phone`, `description`, `cat`) VALUES ('" + eleName + "', '" + owner + "', '" + eleLocation + "', '', '" + eleDescription + "', '" + elecat + "');";
+	
+	sql_con.insert(qS);
+	res.redirect('/');
+}
 
 function deleteEle(req, res){}
 
