@@ -3,6 +3,61 @@
  */
 
 var mysql = require('mysql');
+var poolModule = require('generic-pool');
+
+var poolModule = require('generic-pool');
+var pool = poolModule.Pool({
+    name     : 'mysql',
+    create   : function(callback){
+    	
+	var connection = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : '12345678',
+		port : '3306',
+		database : 'test'
+	});
+		connection.connect();
+		callback(null, connection);
+    },
+    
+//    create   : function(callback) {
+//        var Client = require('mysql').Client;
+//        var c = new Client();
+//        c.user     = 'root';
+//        c.password = '12345678';
+//        c.database = 'test';
+//        c.connect();
+//
+//        // parameter order: err, 	
+//        // new in 1.0.6
+//        callback(null, c);
+//    },
+    destroy  : function(client) { client.end(); },
+    max      : 10,
+    // optional. if you set this, make sure to drain() (see step 3)
+    min      : 10,
+    // specifies how long a resource can stay idle in pool before being removed
+    idleTimeoutMillis : 30000,
+     // if true, logs via console.log - can also be a function
+    log : true
+});
+function fetchData_gcp(sqlQuery, callback){
+	
+	pool.acquire(function(err, client) {
+		if (err) {
+			// handle error - this is generally the err from your
+			// factory.create function  
+		}
+		else {
+			client.query(sqlQuery, function(err, rows, fields) {
+				// return object back to pool
+				callback(err, rows);
+				pool.release(client);
+			});
+		}
+	});
+}
 
 var av = [true, true, true, true, true, true, true, true, true, true];
 
@@ -45,7 +100,6 @@ function returnCon(i){
 	av[i] = true;
 }
 
-
 var connection = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
@@ -76,21 +130,30 @@ function fetchData(sqlQuery, callback){
 	returnCon(i);
 }
 
-//function fetchData(sqlQuery, callback){
-//	
-//	console.log("\nSQL Query::"+sqlQuery);
-//	
-//	connection.query(sqlQuery, function(err, rows, fields) {
-//		if(err){
-//			console.log("ERROR: " + err.message);
-//		}
-//		else
-//		{
-//			callback(err, rows);
-//		}
-//	});
-//	console.log("\nConnection closed..");
-//}
+function fetchData_ncp(sqlQuery, callback){
+	
+	console.log("\nSQL Query::"+sqlQuery);
+	
+	var con = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : '12345678',
+		port : '3306',
+		database : 'test'
+		});
+	
+	con.query(sqlQuery, function(err, rows, fields) {
+		if(err){
+			console.log("ERROR: " + err.message);
+		}
+		else
+		{
+			callback(err, rows);
+		}
+		con.end();
+	});
+	
+}
 
 function insert(qS){
 	
@@ -103,11 +166,6 @@ function insert(qS){
 	returnCon(i);
 }
 
-//function insert(qS){
-//	
-//	console.log("\nSQL Query::" + qS);
-//	connection.query(qS);
-//}
 
 function query(queryS, con){
 
@@ -125,6 +183,8 @@ function query(queryS, con){
 exports.query = query;
 exports.connection = connection;
 exports.fetchData = fetchData;
+exports.fetchData_ncp = fetchData_ncp;
+exports.fetchData_gcp = fetchData_gcp;
 exports.insert = insert;
 exports.getCon = getCon;
 exports.returnCon = returnCon;

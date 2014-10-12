@@ -5,10 +5,12 @@ var querystring = require("querystring");
 function getCat(req, res){
 	
 	if(!req.isAuthenticated()){res.redirect('/login');}
-	console.log("/cat/:catname is requested");
+	else{
+		
+			console.log("/cat/:catname is requested");
 	var catName = req.params.catname;
 	
-	var catList = ['restaurants', 'shopping', 'nightlife', 'coffee', 'food', 'auto', 'homeservices', 'health', 'localservice', 'arts', 'pets'];
+	var catList = ['restaurants', 'shopping', 'nightlife', 'coffee', 'food', 'auto', 'homeservices', 'health', 'localservice', 'arts', 'pets', 'eventservices', 'hotelstravel', 'professional', 'education', 'financialservices', 'religiousorgs', 'massmedia', 'beautysvc'];
 	
 	var qS = "SELECT * FROM test.cats;";
 	
@@ -39,6 +41,8 @@ function getCat(req, res){
 	
 
 		});
+	}
+
 }
 
 function createCat(req, res){

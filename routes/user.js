@@ -15,9 +15,15 @@ function login(req, res){
 	res.render('yelp_loginpage');
 }
 
-function loginPost(req, res){
+function loginfail(req, res){
 	
+	res.render('yelp_loginfailpage', {info : "Wrong user name or password."});
+}
+
+function loginPost(req, res){
+
 	console.log("/ligin POST is requested.");
+
 	res.redirect('/');
 }
 
@@ -43,6 +49,11 @@ function signup(req, res){
 	res.render('yelp_signuppage');
 }
 
+function signupfail(req, res){
+	
+	res.render('yelp_signupfailpage', {info: "Email already registered."});
+}
+
 function signupPost(req, res){
 	
 	console.log("/signup POST is requsted.");
@@ -52,10 +63,24 @@ function signupPost(req, res){
 	var zipcode = req.body.zipcode;
 	var password = req.body.password;
 	
-	var qS = "INSERT INTO `test`.`users` (`email`, `password`, `firstname`, `lastname`, `zipcode`) VALUES ('" + email + "', '" + password + "', '" + firstname + "', '" + lastname + "', '" + zipcode + "');";
-//	console.log(qS);
-	sql_con.insert(qS);
-	res.redirect('/');
+	var qS1 = "select * from `test`.`users` where email = '" + email + "';";
+	
+	sql_con.fetchData(qS1, function(error, rows){
+		
+		if(rows.length >= 1){
+			
+			res.redirect('/signupfail');
+		}
+		else{
+			
+			var qS = "INSERT INTO `test`.`users` (`email`, `password`, `firstname`, `lastname`, `zipcode`) VALUES ('" + email + "', '" + password + "', '" + firstname + "', '" + lastname + "', '" + zipcode + "');";
+			//	console.log(qS);
+			sql_con.insert(qS);
+			res.redirect('/');
+		}
+	});
+	
+	
 }
 
 function passportAauth(username, password, done){
@@ -64,9 +89,13 @@ function passportAauth(username, password, done){
 
 	sql_con.fetchData(qS, function(error, rows){
 		
-		if(error){console.log("ERROR: " + error.message);}
+		if(error || rows === null ||rows.length === 0){
+			
+//			console.log("ERROR: " + error.message);
+			done(null, null);
+		}
 //		console.log(rows[0].password);
-		if(rows[0].password === password)
+		else if(rows[0].password === password)
 		{
 
 //			done(null,{id:username, name: username });
@@ -76,7 +105,7 @@ function passportAauth(username, password, done){
 		else
 		{
 
-			done(null,null);
+			done(null, null);
 		}
 	});
 }
@@ -110,13 +139,51 @@ function profile(req, res){
 	
 }
 
+function test_cp(req, res){
+	
+	var qS = "SELECT * FROM test.users where email='yinfeiyu43@gmail.com';";
+	
+	sql_con.fetchData(qS, function(error, rows){
+		
+		res.render('testpage',{reviewrows: rows[0].email});
+	});
+	
+}
+
+function test_ncp(req, res){
+	
+	var qS = "SELECT * FROM test.users where email='yinfeiyu43@gmail.com';";
+	
+	sql_con.fetchData_ncp(qS, function(error, rows){
+		
+		res.render('testpage',{reviewrows: rows[0].email});
+	});
+	
+}
+
+function test_gcp(req, res){
+	
+	var qS = "SELECT * FROM test.users where email='yinfeiyu43@gmail.com';";
+	
+	sql_con.fetchData_gcp(qS, function(error, rows){
+		
+		res.render('testpage',{reviewrows: rows[0].email});
+	});
+	
+}
+
+exports.test_cp = test_cp;
+exports.test_ncp = test_ncp;
+exports.test_gcp = test_gcp;
 module.exports.root = root;
 exports.login = login;
+exports.loginfail = loginfail;
 exports.loginPost = loginPost;
 exports.logout = logout;
 exports.signup = signup;
+exports.signupfail = signupfail;
 exports.signupPost = signupPost;
 exports.passportAauth = passportAauth;
 exports.profile = profile;
 exports.deserializeUser = deserializeUser;
-exports.serializeUser = serializeUser
+exports.serializeUser = serializeUser;

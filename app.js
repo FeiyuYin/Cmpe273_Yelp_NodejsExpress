@@ -4,6 +4,7 @@
 
 var express = require('express');
 var passport = require('passport');
+//var poolModule = require('generic-pool');
 var user = require('./routes/user');
 var cats = require('./routes/cats');
 var eles = require('./routes/eles');
@@ -38,11 +39,15 @@ app.get('/', user.root);
 
 app.get('/login', user.login);
 
-app.post('/login',passport.authenticate('local'), user.loginPost);
+app.get('/loginfail', user.loginfail);
+
+app.post('/login',passport.authenticate('local', {failureRedirect: '/loginfail'}), user.loginPost);
 
 app.get('/logout', user.logout);
 
 app.get('/signup', user.signup);
+
+app.get('/signupfail', user.signupfail);
 
 app.post('/signup', user.signupPost);
 
@@ -70,7 +75,12 @@ app.post('/createreview', review.createReviewPost);
 
 app.get('/review', review.getReview);
 
-app.delete('/resta/:reviewid', review.deleteReview);
+//app.delete('/resta/:reviewid', review.deleteReview);
+
+
+app.get('/test_cp', user.test_cp);
+app.get('/test_ncp', user.test_ncp);
+app.get('/test_gcp', user.test_gcp);
 
  
 var port= process.env.PORT||3000;
